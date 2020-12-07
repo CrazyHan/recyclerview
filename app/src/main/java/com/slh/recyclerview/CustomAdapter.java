@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.recyclerview.widget1.RecyclerView;
 
 import java.util.List;
+import java.util.Map;
 
 public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomViewHolder> {
 
@@ -27,13 +28,28 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
     public CustomViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.item_rv, parent, false);
         Log.e(TAG, "onCreateViewHolder: " + getItemCount());
+//        Map<Thread,StackTraceElement[]> elementsMap = Thread.getAllStackTraces();
+//        StackTraceElement[] stackTrace = elementsMap.get(Thread.currentThread());
+//
+//        for (StackTraceElement stackTraceElement : stackTrace) {
+//            Log.e("onCreateViewHolder",  stackTraceElement.getLineNumber()+ " "+ stackTraceElement.getMethodName()+ " >>>>"+ stackTraceElement.getClassName());
+//        }
+
         return new CustomViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(CustomViewHolder holder, int position) {
         holder.tv.setText(list.get(position));
+
         Log.e(TAG, "onBindViewHolder: " + position);
+
+//        Map<Thread,StackTraceElement[]> elementsMap = Thread.getAllStackTraces();
+//        StackTraceElement[] stackTrace = elementsMap.get(Thread.currentThread());
+//
+//        for (StackTraceElement stackTraceElement : stackTrace) {
+//            Log.e("onBindViewHolder",  stackTraceElement.getLineNumber()+ " "+ stackTraceElement.getMethodName()+ " >>>>"+ stackTraceElement.getClassName());
+//        }
     }
 
     @Override

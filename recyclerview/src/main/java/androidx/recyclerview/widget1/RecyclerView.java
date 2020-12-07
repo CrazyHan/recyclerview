@@ -3564,6 +3564,7 @@ public class RecyclerView extends ViewGroup implements ScrollingView,
                 onExitLayoutOrScroll();
 
                 if (mState.mRunPredictiveAnimations) {
+
                     mState.mInPreLayout = true;
                 } else {
                     // consume remaining updates to provide a consistent state with the layout pass.
@@ -5735,9 +5736,11 @@ public class RecyclerView extends ViewGroup implements ScrollingView,
          * @param scrap ViewHolder to be added to the pool.
          */
         public void putRecycledView(ViewHolder scrap) {
+            Log.e(TAG, "putRecycledView()\n");
             final int viewType = scrap.getItemViewType();
             final ArrayList<ViewHolder> scrapHeap = getScrapDataForType(viewType).mScrapHeap;
             if (mScrap.get(viewType).mMaxScrap <= scrapHeap.size()) {
+                Log.e(TAG, "putRecycledView : mMaxScrap = " + mScrap.get(viewType).mMaxScrap + "|| scrapHeap.size() =" + scrapHeap.size()+"   <return>");
                 return;
             }
             if (DEBUG && scrapHeap.contains(scrap)) {
@@ -5745,6 +5748,7 @@ public class RecyclerView extends ViewGroup implements ScrollingView,
             }
             scrap.resetInternal();
             scrapHeap.add(scrap);
+            Log.e(TAG, "putRecycledView : 存入 scrapHeap");
         }
 
         long runningAverage(long oldAverage, long newValue) {
@@ -6137,6 +6141,7 @@ public class RecyclerView extends ViewGroup implements ScrollingView,
         @Nullable
         ViewHolder tryGetViewHolderForPositionByDeadline(int position,
                                                          boolean dryRun, long deadlineNs) {
+            Log.e(TAG, "tryGetViewHolderForPositionByDeadline()\n");
             if (position < 0 || position >= mState.getItemCount()) {
                 throw new IndexOutOfBoundsException("Invalid item position " + position
                         + "(" + position + "). Item count:" + mState.getItemCount()
@@ -6401,9 +6406,11 @@ public class RecyclerView extends ViewGroup implements ScrollingView,
          * @param cachedViewIndex The index of the view in cached views list
          */
         void recycleCachedViewAt(int cachedViewIndex) {
+            Log.e(TAG, "recycleCachedViewAt()\n");
             if (DEBUG) {
                 Log.d(TAG, "Recycling cached view at index " + cachedViewIndex);
             }
+            Log.e(TAG, "recycleCachedViewAt()\n");
             ViewHolder viewHolder = mCachedViews.get(cachedViewIndex);
             if (DEBUG) {
                 Log.d(TAG, "CachedViewHolder to be recycled: " + viewHolder);
@@ -6513,11 +6520,9 @@ public class RecyclerView extends ViewGroup implements ScrollingView,
          * @param dispatchRecycled True to dispatch View recycled callbacks.
          */
         void addViewHolderToRecycledViewPool(@NonNull ViewHolder holder, boolean dispatchRecycled) {
+            Log.e(TAG, "addViewHolderToRecycledViewPool()\n");
             clearNestedRecyclerViewIfNotNested(holder);
-//            if (holder.hasAnyOfTheFlags(ViewHolder.FLAG_SET_A11Y_ITEM_DELEGATE)) {
-//                holder.setFlags(0, ViewHolder.FLAG_SET_A11Y_ITEM_DELEGATE);
-//                ViewCompat.setAccessibilityDelegate(holder.itemView, null);
-//            }
+
             if (dispatchRecycled) {
                 dispatchViewRecycled(holder);
             }
@@ -6544,7 +6549,7 @@ public class RecyclerView extends ViewGroup implements ScrollingView,
          * <p>"Scrap" views are still attached to their parent RecyclerView but are eligible
          * for rebinding and reuse. Requests for a view for a given position may return a
          * reused or rebound scrap view instance.</p>
-         *
+         *“Scrap”视图仍附加到其父级RecyclerView，但可以重新绑定和重用。 请求给定位置的视图可能会返回重用或反弹的Scrap视图实例。
          * @param view View to scrap
          */
         void scrapView(View view) {
