@@ -6,15 +6,21 @@ import androidx.recyclerview.widget1.GridLayoutManager;
 import androidx.recyclerview.widget1.RecyclerView;
 
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.util.Log;
+import android.view.View;
+import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Queue;
 
 public class MainActivity extends AppCompatActivity {
 
     private RecyclerView rv;
-
+    private String TAG = "MainActivity";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,5 +38,59 @@ public class MainActivity extends AppCompatActivity {
 
         final CustomAdapter adapter = new CustomAdapter(this, list);
         rv.setAdapter(adapter);
+
+        final EditText editText = findViewById(R.id.index);
+
+        findViewById(R.id.delete).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (TextUtils.isEmpty(editText.getText().toString())) {
+                    Toast.makeText(MainActivity.this, "输入正确索引！", Toast.LENGTH_SHORT).show();
+                    return ;
+                }
+
+                int index = Integer.valueOf(editText.getText().toString());
+                Log.e(TAG, "onClick: " +index );
+                list.remove(index);
+                adapter.notifyItemRemoved(index);
+
+            }
+        });
+
+        findViewById(R.id.update).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (TextUtils.isEmpty(editText.getText().toString())) {
+                    Toast.makeText(MainActivity.this, "输入正确索引！", Toast.LENGTH_SHORT).show();
+                    return ;
+                }
+                int index = Integer.valueOf(editText.getText().toString());
+                Log.e(TAG, "onClick: " +index );
+
+                list.remove(index);
+                list.add(index,index+"update");
+                adapter.notifyItemInserted(index);
+
+
+            }
+        });
+
+        findViewById(R.id.insert).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (TextUtils.isEmpty(editText.getText().toString())) {
+                    Toast.makeText(MainActivity.this, "输入正确索引！", Toast.LENGTH_SHORT).show();
+                    return ;
+                }
+
+                int index = Integer.valueOf(editText.getText().toString());
+                Log.e(TAG, "onClick: " +index );
+                list.add(index,index+"insert");
+                adapter.notifyItemInserted(index);
+
+            }
+        });
+
+
     }
 }
