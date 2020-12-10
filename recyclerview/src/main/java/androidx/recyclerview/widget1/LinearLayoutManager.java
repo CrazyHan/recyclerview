@@ -1568,8 +1568,10 @@ public class LinearLayoutManager extends RecyclerView.LayoutManager implements
         if (layoutState.mScrapList == null) {
             if (mShouldReverseLayout == (layoutState.mLayoutDirection
                     == LayoutState.LAYOUT_START)) {
+                Log.e(TAG, "\n  在最后添加ViewHolder");
                 addView(view);
             } else {
+                Log.e(TAG, "\n  在最前添加ViewHolder");
                 addView(view, 0);
             }
         } else {

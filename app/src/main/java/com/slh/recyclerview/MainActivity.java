@@ -3,6 +3,7 @@ package com.slh.recyclerview;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget1.DividerItemDecoration;
 import androidx.recyclerview.widget1.GridLayoutManager;
+import androidx.recyclerview.widget1.LinearLayoutManager;
 import androidx.recyclerview.widget1.RecyclerView;
 
 import android.os.Bundle;
@@ -28,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
 
         rv = (RecyclerView) findViewById(R.id.rv);
 
-        rv.setLayoutManager(new GridLayoutManager(this, 3));
+        rv.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         rv.addItemDecoration(new DividerItemDecoration(this, LinearLayout.VERTICAL));
 
         final List<String> list = new ArrayList<>();
