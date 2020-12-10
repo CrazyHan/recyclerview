@@ -41,6 +41,8 @@ public class MainActivity extends AppCompatActivity {
         rv.setAdapter(adapter);
 
         final EditText editText = findViewById(R.id.index);
+        final EditText editTextDown = findViewById(R.id.range_down);
+        final EditText editTextUp = findViewById(R.id.range_up);
 
         findViewById(R.id.delete).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,6 +90,51 @@ public class MainActivity extends AppCompatActivity {
                 Log.e(TAG, "onClick: " +index );
                 list.add(index,index+"insert");
                 adapter.notifyItemInserted(index);
+
+            }
+        });
+
+
+
+        findViewById(R.id.updateAll).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (TextUtils.isEmpty(editText.getText().toString())) {
+                    Toast.makeText(MainActivity.this, "输入正确索引！", Toast.LENGTH_SHORT).show();
+                    return ;
+                }
+
+                list.clear();
+                for (int i = 0; i < 999; i++) {
+                    list.add(i + "a");
+                }
+
+                adapter.notifyDataSetChanged();
+
+            }
+        });
+
+        findViewById(R.id.updateRange).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (TextUtils.isEmpty(editTextDown.getText().toString())) {
+                    Toast.makeText(MainActivity.this, "输入正确索引！", Toast.LENGTH_SHORT).show();
+                    return ;
+                }
+
+                int down = Integer.valueOf(editTextDown.getText().toString());
+                int up = Integer.valueOf(editTextUp.getText().toString());
+
+                list.clear();
+                for (int i = 0; i < 1000; i++) {
+                    if(i>=down && i<=up) {
+                        list.add("range" + i);
+                    }else{
+                        list.add(i+"");
+                    }
+                }
+
+                adapter.notifyItemRangeChanged(down,up);
 
             }
         });

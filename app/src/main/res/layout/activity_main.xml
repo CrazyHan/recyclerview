@@ -23,30 +23,60 @@
 
         <EditText
             android:id="@+id/index"
-            android:layout_width="50dp"
+            android:layout_width="30dp"
             android:layout_height="wrap_content"
             android:hint="输入索引"
             ></EditText>
 
-        <Button
+        <EditText
+            android:id="@+id/range_down"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:hint="输入索引"
+            ></EditText>
+        <EditText
+            android:id="@+id/range_up"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:hint="输入索引"
+            ></EditText>
+
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/delete"
             android:text="delete"
+            android:layout_marginRight="2dp"
             />
-        <Button
+
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/insert"
             android:text="insert"
-            ></Button>
+            android:layout_marginRight="2dp"
+            ></TextView>
 
-        <Button
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/update"
             android:text="update"
+            android:layout_marginRight="2dp"
             />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/updateAll"
+            android:layout_marginRight="2dp"
+            android:text="notifyAll"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/updateRange"
+            android:layout_marginRight="2dp"
+            android:text="range" />
 
     </LinearLayout>
 </LinearLayout>
