@@ -6597,7 +6597,7 @@ public class RecyclerView extends ViewGroup implements ScrollingView,
                 mChangedScrap.remove(holder);
                 Log.e(TAG,"位置 "+holder.mPosition + "的 Holder 被从 mChangedScrap 中移除，mChangedScrap 当前大小为："+mChangedScrap.size());
             } else {
-                Log.e(TAG,"位置 "+holder.mPosition + "的 Holder 被从 mAttachedScrap 中移除，mAttachedScrap 当前大小为："+mChangedScrap.size());
+                Log.e(TAG,"位置 "+holder.mPosition + "的 Holder 被从 mAttachedScrap 中移除，mAttachedScrap 当前大小为："+mAttachedScrap.size());
                 mAttachedScrap.remove(holder);
             }
             holder.mScrapContainer = null;
