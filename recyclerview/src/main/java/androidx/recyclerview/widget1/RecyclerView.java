@@ -1540,8 +1540,8 @@ public class RecyclerView extends ViewGroup implements ScrollingView,
             return;
         }
         if (DEBUG) {
-            Log.d(TAG, "setting scroll state to " + state + " from " + mScrollState,
-                    new Exception());
+            Log.d(TAG, "setting scroll state to " + state + " from " + mScrollState/*,
+                    new Exception()*/);
         }
         mScrollState = state;
         if (state != SCROLL_STATE_SETTLING) {
@@ -5751,7 +5751,7 @@ public class RecyclerView extends ViewGroup implements ScrollingView,
             }
             scrap.resetInternal();
             scrapHeap.add(scrap);
-            Log.e(TAG, "位置" + scrap.mPosition + "的Holder添加到 scrapHeap 成功 scrapHeap大小："+scrapHeap.size());
+            Log.e(TAG,  "scrapHeap添加"+ scrap +" scrapHeap大小："+scrapHeap.size());
         }
 
         long runningAverage(long oldAverage, long newValue) {
@@ -6420,12 +6420,11 @@ public class RecyclerView extends ViewGroup implements ScrollingView,
                 Log.d(TAG, "Recycling cached view at index " + cachedViewIndex);
             }
             ViewHolder viewHolder = mCachedViews.get(cachedViewIndex);
-            Log.e(TAG, "把 mCachedViews 中" + cachedViewIndex + "位置的元素添加到 Pool");
+            Log.e(TAG, "把 mCachedViews 中" + cachedViewIndex + "位置的元素添加到 RecycledViewPool 并从mCachedViews 中删除");
             if (DEBUG) {
                 Log.d(TAG, "CachedViewHolder to be recycled: " + viewHolder);
             }
             addViewHolderToRecycledViewPool(viewHolder, true);
-            Log.e(TAG, "把 mCachedViews 中" + cachedViewIndex + "位置的元素删除");
             mCachedViews.remove(cachedViewIndex);
         }
 
@@ -6493,7 +6492,7 @@ public class RecyclerView extends ViewGroup implements ScrollingView,
                         }
                         targetCacheIndex = cacheIndex + 1;
                     }
-                    Log.e(TAG, "位置" + holder.mPosition + "的Holder添加到 mCachedViews 的第"+targetCacheIndex+"个位置上");
+                    Log.e(TAG, "mCachedViews" +"["+targetCacheIndex+"]添加" + holder);
                     mCachedViews.add(targetCacheIndex, holder);
                     cached = true;
                 }
@@ -6595,9 +6594,9 @@ public class RecyclerView extends ViewGroup implements ScrollingView,
         void unscrapView(ViewHolder holder) {
             if (holder.mInChangeScrap) {
                 mChangedScrap.remove(holder);
-                Log.e(TAG,"位置 "+holder.mPosition + "的 Holder 被从 mChangedScrap 中移除，mChangedScrap 当前大小为："+mChangedScrap.size());
+                Log.e(TAG,"mChangedScrap 移除"+holder + " 当前大小为："+mChangedScrap.size());
             } else {
-                Log.e(TAG,"位置 "+holder.mPosition + "的 Holder 被从 mAttachedScrap 中移除，mAttachedScrap 当前大小为："+mAttachedScrap.size());
+                Log.e(TAG,"mAttachedScrap 移除"+holder + " 当前大小为："+mAttachedScrap.size());
                 mAttachedScrap.remove(holder);
             }
             holder.mScrapContainer = null;
@@ -6670,30 +6669,12 @@ public class RecyclerView extends ViewGroup implements ScrollingView,
                         && !holder.isInvalid() && (mState.mInPreLayout || !holder.isRemoved())) {
                     holder.addFlags(ViewHolder.FLAG_RETURNED_FROM_SCRAP);
 
-                    Log.e(TAG, "缓存中查找 ViewHolder 在 mAttachedScrap 中找到位置 "+position+" 的ViewHolder");
+                    Log.e(TAG, "mAttachedScrap 中找到位置 "+position+holder);
                     return holder;
                 }
             }
 
-            if (!dryRun) {
-                View view = mChildHelper.findHiddenNonRemovedView(position);
-                if (view != null) {
-                    // This View is good to be used. We just need to unhide, detach and move to the
-                    // scrap list.
-                    final ViewHolder vh = getChildViewHolderInt(view);
-                    mChildHelper.unhide(view);
-                    int layoutIndex = mChildHelper.indexOfChild(view);
-                    if (layoutIndex == RecyclerView.NO_POSITION) {
-                        throw new IllegalStateException("layout index should not be -1 after "
-                                + "unhiding a view:" + vh + exceptionLabel());
-                    }
-                    mChildHelper.detachViewFromParent(layoutIndex);
-                    scrapView(view);
-                    vh.addFlags(ViewHolder.FLAG_RETURNED_FROM_SCRAP
-                            | ViewHolder.FLAG_BOUNCED_FROM_HIDDEN_LIST);
-                    return vh;
-                }
-            }
+
 
             // Search in our first-level recycled view cache.
             final int cacheSize = mCachedViews.size();
@@ -6711,7 +6692,7 @@ public class RecyclerView extends ViewGroup implements ScrollingView,
                         Log.d(TAG, "getScrapOrHiddenOrCachedHolderForPosition(" + position
                                 + ") found match in cache: " + holder);
                     }
-                    Log.e(TAG, "缓存中查找 ViewHolder 在 mCachedViews中找到");
+                    Log.e(TAG, "mCachedViews中找到" +position +holder);
                     return holder;
                 }
             }
@@ -6823,6 +6804,7 @@ public class RecyclerView extends ViewGroup implements ScrollingView,
 
         void offsetPositionRecordsForInsert(int insertedAt, int count) {
             final int cachedCount = mCachedViews.size();
+            Log.e(TAG, "mCachedViews 插入之前大小:" + cachedCount);
             for (int i = 0; i < cachedCount; i++) {
                 final ViewHolder holder = mCachedViews.get(i);
                 if (holder != null && holder.mPosition >= insertedAt) {
@@ -11365,8 +11347,6 @@ public class RecyclerView extends ViewGroup implements ScrollingView,
         }
 
         void resetInternal() {
-            Log.e(TAG, "位置" + mPosition + "的Holder添加到 scrapHeap 前清空所有信息");
-
             mFlags = 0;
             mPosition = NO_POSITION;
             mOldPosition = NO_POSITION;

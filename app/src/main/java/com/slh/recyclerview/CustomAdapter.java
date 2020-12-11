@@ -27,7 +27,6 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
     @Override
     public CustomViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.item_rv, parent, false);
-        Log.e(TAG, "onCreateViewHolder: " + getItemCount());
 //        Map<Thread,StackTraceElement[]> elementsMap = Thread.getAllStackTraces();
 //        StackTraceElement[] stackTrace = elementsMap.get(Thread.currentThread());
 //
