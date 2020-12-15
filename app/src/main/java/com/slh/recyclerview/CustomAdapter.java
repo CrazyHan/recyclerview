@@ -63,6 +63,13 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
             super(itemView);
             tv = itemView.findViewById(R.id.tv);
         }
+
+        @Override
+        public String toString() {
+            return super.toString()+"{" +
+                    "tv=" + tv.getText() +
+                    '}';
+        }
     }
 
 }

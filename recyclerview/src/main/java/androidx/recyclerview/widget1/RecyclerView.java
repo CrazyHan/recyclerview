@@ -4031,6 +4031,7 @@ public class RecyclerView extends ViewGroup implements ScrollingView,
      * - If necessary, run predictive layout and save its information
      */
     private void dispatchLayoutStep1() {
+        Log.e(TAG, "dispatchLayoutStep1: ",new Exception());
         mState.assertLayoutStep(State.STEP_START);
         fillRemainingScrollValues(mState);
         mState.mIsMeasuring = false;
@@ -4123,6 +4124,7 @@ public class RecyclerView extends ViewGroup implements ScrollingView,
      * This step might be run multiple times if necessary (e.g. measure).
      */
     private void dispatchLayoutStep2() {
+        Log.e(TAG, "dispatchLayoutStep2: " ,new Exception());
         startInterceptRequestLayout();
         onEnterLayoutOrScroll();
         mState.assertLayoutStep(State.STEP_LAYOUT | State.STEP_ANIMATIONS);
@@ -4149,6 +4151,7 @@ public class RecyclerView extends ViewGroup implements ScrollingView,
      * trigger animations and do any necessary cleanup.
      */
     private void dispatchLayoutStep3() {
+        Log.e(TAG, "dispatchLayoutStep3: ",new Exception() );
         mState.assertLayoutStep(State.STEP_ANIMATIONS);
         startInterceptRequestLayout();
         onEnterLayoutOrScroll();
