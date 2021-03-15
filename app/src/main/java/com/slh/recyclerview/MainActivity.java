@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Queue;
 
@@ -22,11 +23,14 @@ public class MainActivity extends AppCompatActivity {
 
     private RecyclerView rv;
     private String TAG = "MainActivity";
+
+    int i = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        HashMap<String, String> hashMap = new HashMap<>();
+        hashMap.put("", "");
         rv = (RecyclerView) findViewById(R.id.rv);
 
         rv.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
@@ -43,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
         final EditText editText = findViewById(R.id.index);
         final EditText editTextDown = findViewById(R.id.range_down);
         final EditText editTextUp = findViewById(R.id.range_up);
-
+//        editTextUp.requestLayout();
         findViewById(R.id.delete).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -59,6 +63,8 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+        findViewById(R.id.delete).invalidate();
 
         findViewById(R.id.update).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -99,45 +105,54 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.updateAll).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (TextUtils.isEmpty(editText.getText().toString())) {
-                    Toast.makeText(MainActivity.this, "输入正确索引！", Toast.LENGTH_SHORT).show();
-                    return ;
-                }
+//                if (TextUtils.isEmpty(editText.getText().toString())) {
+//                    Toast.makeText(MainActivity.this, "输入正确索引！", Toast.LENGTH_SHORT).show();
+//                    return ;
+//                }
 
-                list.clear();
-                for (int i = 0; i < 999; i++) {
-                    list.add(i + "a");
-                }
+                list.set(i,"string"+i);
 
-                adapter.notifyDataSetChanged();
+//                for (int i = 0; i < 999; i++) {
+//                    list.add(i + "a");
+//                }
 
+//                adapter.notifyDataSetChanged();
+                adapter.notifyItemChanged(i,null);
+
+                i++;
             }
         });
 
         findViewById(R.id.updateRange).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (TextUtils.isEmpty(editTextDown.getText().toString())) {
-                    Toast.makeText(MainActivity.this, "输入正确索引！", Toast.LENGTH_SHORT).show();
-                    return ;
-                }
 
-                int down = Integer.valueOf(editTextDown.getText().toString());
-                int up = Integer.valueOf(editTextUp.getText().toString());
+                editTextUp.invalidate();
+                return;
 
-                list.clear();
-                for (int i = 0; i < 1000; i++) {
-                    if(i>=down && i<=up) {
-                        list.add("range" + i);
-                    }else{
-                        list.add(i+"");
-                    }
-                }
-
-                adapter.notifyItemRangeChanged(down,up);
+//                if (TextUtils.isEmpty(editTextDown.getText().toString())) {
+//                    Toast.makeText(MainActivity.this, "输入正确索引！", Toast.LENGTH_SHORT).show();
+//                    return ;
+//                }
+//
+//                int down = Integer.valueOf(editTextDown.getText().toString());
+//                int up = Integer.valueOf(editTextUp.getText().toString());
+//
+//                list.clear();
+//                for (int i = 0; i < 1000; i++) {
+//                    if(i>=down && i<=up) {
+//                        list.add("range" + i);
+//                    }else{
+//                        list.add(i+"");
+//                    }
+//                }
+//
+//                adapter.notifyItemRangeChanged(down,up);
 
             }
         });
+
+
 
 
     }
