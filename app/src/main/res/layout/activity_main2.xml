@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.slh.recyclerview.customView.CustomLinearlayout
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <com.slh.recyclerview.customView.CustomLinearlayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:onClick="click"
+        android:background="@color/colorPrimary">
 
         <com.slh.recyclerview.customView.CustomButton
             android:id="@+id/button"
@@ -15,12 +17,14 @@
             android:layout_height="wrap_content"
             android:text="刷新"/>
 
+<!--        <com.slh.recyclerview.customView.CustomButton-->
+<!--            android:id="@+id/button1"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="被刷新"/>-->
+
     </com.slh.recyclerview.customView.CustomLinearlayout>
 
-    <com.slh.recyclerview.customView.CustomButton
-        android:id="@+id/button1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="被刷新"/>
 
-</com.slh.recyclerview.customView.CustomLinearlayout>
+
+</FrameLayout>

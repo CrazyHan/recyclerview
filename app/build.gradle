@@ -35,6 +35,5 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
     implementation project(':recyclerview')
-    compileOnly 'com.google.android.wearable:wearable:2.5.0'
 
 }
