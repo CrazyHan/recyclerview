@@ -8,6 +8,7 @@ import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.slh.recyclerview.R;
+import com.squareup.leakcanary.LeakCanary;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -39,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
 //                mTextView1.invalidate();
 //            }
 //        });
-
+        LeakCanary.install(getApplication()).watch(this);
     }
 
     public void click(View view) {
